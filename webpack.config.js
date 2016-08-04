@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  entry: './src',
+  entry: `${__dirname}/src/index`,
   output: {
     path: 'builds',
     filename: 'bundle.js',
@@ -9,20 +9,24 @@ module.exports = {
   module: {
     loaders: [
       {
-          test:    /\.js/,
+          test:    /\.js$/,
           loader:  'babel',
-          include: __dirname + '/src'
+          include: __dirname + '/src',
       },
       {
-          test:   /\.scss/,
+          test:   /\.scss$/,
           loader: 'style!css!sass',
           // Or
           // loaders: ['style', 'css', 'sass'],
       },
       {
-          test:   /\.html/,
+          test:   /\.html$/,
           loader: 'html',
       }
     ],
+  },
+  stats: {
+    reasons: true,
+    errorDetails: true
   }
 };
