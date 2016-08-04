@@ -4,15 +4,24 @@ module.exports = {
   entry: './src',
   output: {
     path: 'builds',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     loaders: [
       {
-        test: /\.js/,
-        loader: 'babel',
-        // Using include will make sure that babel doesn't get run on third party plugins like jQuery
-        include: __dirname + '/src',
+          test:    /\.js/,
+          loader:  'babel',
+          include: __dirname + '/src'
+      },
+      {
+          test:   /\.scss/,
+          loader: 'style!css!sass',
+          // Or
+          // loaders: ['style', 'css', 'sass'],
+      },
+      {
+          test:   /\.html/,
+          loader: 'html',
       }
     ],
   }
