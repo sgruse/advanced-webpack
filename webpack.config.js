@@ -5,6 +5,7 @@ module.exports = {
   output: {
     path: 'builds',
     filename: 'bundle.js',
+    publicPath: 'builds/',
   },
   module: {
     loaders: [
@@ -25,8 +26,8 @@ module.exports = {
       }
     ],
   },
-  stats: {
-    reasons: true,
-    errorDetails: true
-  }
+  // stats: {
+  //   reasons: true,
+  //   errorDetails: true
+  // }
 };

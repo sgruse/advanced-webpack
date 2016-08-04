@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "builds/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -56,8 +56,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	(0, _jquery2.default)('body').html('Hello');
-
 	// console.log('hello world');
 	var button = new _Button2.default('google.com');
 	button.render('a');
@@ -65,14 +63,14 @@
 	// Everything in the ensure callback will be split into a chunk, a seperate bundle that webpack will only load if needed.
 	// In this case it will be loaded if there is an 'a' tag to attach to.
 
-	// if (document.querySelectorAll('a').length) {
-	//     require.ensure([], () => {
-	//         const Button = require('./Components/Button').default;
-	//         const button = new Button('google.com');
-	//
-	//         button.render('a');
-	//     });
-	// }
+	if (document.querySelectorAll('a').length) {
+	    !/* require.ensure */(function () {
+	        var Button = __webpack_require__(2).default;
+	        var button = new Button('google.com');
+
+	        button.render('a');
+	    }(__webpack_require__));
+	}
 
 /***/ },
 /* 1 */
@@ -10219,7 +10217,7 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = "<a class=\"button\" href=\"{{link}}\">button</a>\n";
+	module.exports = "<a class=\"button\" href=\"{{link}}\">{{text}}</a>\n";
 
 /***/ },
 /* 4 */
@@ -10891,7 +10889,7 @@
 
 
 	// module
-	exports.push([module.id, ".button {\n  background: red;\n  color: white; }\n", ""]);
+	exports.push([module.id, ".button {\n  background: red;\n  color: blue; }\n", ""]);
 
 	// exports
 
