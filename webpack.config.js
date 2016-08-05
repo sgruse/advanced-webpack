@@ -7,6 +7,7 @@ var production = process.env.NODE_ENV === 'production';
 
 var plugins = [
     new ExtractPlugin('bundle.css'),
+    new CleanPlugin('builds'),
     new webpack.DefinePlugin({
       __SERVER__:      !production,
       __DEVELOPMENT__: !production,
@@ -24,9 +25,8 @@ var plugins = [
 
 if (production) {
   plugins = plugins.concat([
-    new CleanPlugin('builds'),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin()
+    // new webpack.optimize.OccurenceOrderPlugin()
     // new webpack.optimize.MinChunkSizePlugin({
     //   minChunkSize: 51200, // ~50kb
     // }),
@@ -77,6 +77,17 @@ module.exports = {
       //     // loader: ExtractPlugin.extract('style', 'css!sass'),
       //     // Or
       //     // loaders: ['style', 'css', 'sass'],
+      // },
+      {
+          test: /\.(png|gif|jpe?g|svg)$/i,
+          loader: 'url?limit=10000'
+      },
+      // {
+      //     test:   /\.(png|gif|jpe?g|svg)$/i,
+      //     loader: 'url',
+      //     query: {
+      //     limit: 10000,
+      //   }
       // },
       {
           test:   /\.html$/,
