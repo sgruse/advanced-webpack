@@ -26,24 +26,24 @@ var plugins = [
 if (production) {
   plugins = plugins.concat([
     new webpack.optimize.DedupePlugin(),
-    // new webpack.optimize.OccurenceOrderPlugin()
-    // new webpack.optimize.MinChunkSizePlugin({
-    //   minChunkSize: 51200, // ~50kb
-    // }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   mangle:   true,
-    //   compress: {
-    //     warnings: false, // Suppress uglification warnings
-    //   },
-    // }),
-    // new webpack.DefinePlugin({
-    //   __SERVER__:      !production,
-    //   __DEVELOPMENT__: !production,
-    //   __DEVTOOLS__:    !production,
-    //   'process.env':   {
-    //     BABEL_ENV: JSON.stringify(process.env.NODE_ENV),
-    //   },
-    // }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.MinChunkSizePlugin({
+      minChunkSize: 51200, // ~50kb
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle:   true,
+      compress: {
+        warnings: false, // Suppress uglification warnings
+      },
+    }),
+    new webpack.DefinePlugin({
+      __SERVER__:      !production,
+      __DEVELOPMENT__: !production,
+      __DEVTOOLS__:    !production,
+      'process.env':   {
+        BABEL_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
+    }),
   ])
 }
 
@@ -57,9 +57,18 @@ module.exports = {
     chunkFilename: '[name]-[chunkhash].js',
     publicPath: 'builds/'
   },
+  devServer: {
+    hot: true
+  },
   plugins: plugins,
 
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint',
+      }
+    ],
     loaders: [
       // zoolander
       {
@@ -70,6 +79,10 @@ module.exports = {
           test:    /\.js$/,
           loader:  'babel',
           include: __dirname + '/src'
+      },
+      {
+          test: /\.js$/,
+          loader: 'baggage?[file].html=template&[file].scss',
       },
       // {
       //     test:   /\.scss$/,
